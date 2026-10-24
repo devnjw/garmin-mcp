@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04, windows-2025]
+        python: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+      - run: uv sync --frozen --python "${{ matrix.python }}"
+      - run: uv run --frozen ruff check .
+      - run: uv run --frozen ruff format --check .
+      - run: uv run --frozen pytest -q
+      - run: uv build
+      - name: Check POSIX compatibility launchers
+        if: runner.os != 'Windows'
+        run: sh -n scripts/install.sh scripts/run.sh
+      - name: Check installed command without credentials
+        shell: bash
+        run: |
+          uv run --frozen garmin-mcp --version
+          if uv run --frozen garmin-mcp check; then
+            echo 'Expected missing credentials to fail'
+            exit 1
+          fi

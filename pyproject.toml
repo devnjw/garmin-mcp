@@ -1,0 +1,50 @@
+[project]
+name = "garmin-mcp"
+version = "0.2.0"
+description = "MCP server for all 26 Garmin Connect Personal API endpoints and daily summaries"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+requires-python = ">=3.12.4"
+dependencies = [
+  "garmin-connect-personal-api-python==1.0.0",
+  "mcp==1.30.0",
+  "tzdata==2026.5",
+]
+
+[project.scripts]
+garmin-mcp = "garmin_mcp.cli:main"
+
+[project.urls]
+Repository = "https://github.com/devnjw/garmin-mcp"
+Issues = "https://github.com/devnjw/garmin-mcp/issues"
+
+[dependency-groups]
+dev = ["pytest>=9,<10", "ruff>=0.16,<0.17"]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/garmin_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

@@ -1,0 +1,842 @@
+[
+  {
+    "path": "/activity-service/activity/{activityId}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "activityId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/activity-service/activity/{activityId}/workouts",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "activityId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/activitylist-service/activities/search/activities",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "start",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0
+        }
+      },
+      {
+        "name": "limit",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 99
+        }
+      },
+      {
+        "name": "favorite",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": -1
+        }
+      },
+      {
+        "name": "sortOrder",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "default": "desc"
+        }
+      },
+      {
+        "name": "excludeChildren",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      {
+        "name": "sortBy",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "search",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "activityType",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "activitySubType",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "eventType",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "minDistance",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "maxDistance",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "minDuration",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "maxDuration",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "minElevation",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "maxElevation",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "startDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "2026-08-31"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "2026-08-31"
+        }
+      },
+      {
+        "name": "upperLatitude",
+        "in": "query",
+        "schema": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      {
+        "name": "rightLongitude",
+        "in": "query",
+        "schema": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      {
+        "name": "lowerLatitude",
+        "in": "query",
+        "schema": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      {
+        "name": "leftLongitude",
+        "in": "query",
+        "schema": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      {
+        "name": "lowerMaxDepth",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "upperMaxDepth",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "decoDive",
+        "in": "query",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "minElapsedDuration",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "maxElapsedDuration",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "minBottomTime",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "maxBottomTime",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "minAvgPower",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "name": "excludedActivitySubType",
+        "in": "query",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "requiredField",
+        "in": "query",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "path": "/biometric-service/heartRateZones/v2",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "generateDefaults",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    ]
+  },
+  {
+    "path": "/download-service/files/activity/{activityId}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "activityId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/fitnessage-service/fitnessage/v2/{calendarDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "calendarDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "fullHistoryScan",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    ]
+  },
+  {
+    "path": "/goal-service/goal/user/effective/weightgoal/{startDate}/{endDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/hrv-service/hrv/{calendarDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "calendarDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/hrv-service/hrv/daily/{fromDate}/{toDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "fromDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "toDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/nutrition-service/food/logs/{date}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "includeGoals",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      {
+        "name": "includeNutrition",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      {
+        "name": "includeMedia",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      {
+        "name": "mealId",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int64",
+          "example": "2"
+        }
+      },
+      {
+        "name": "date",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/periodichealth-service/menstrualcycle/summary/{calendarDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "calendarDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/periodichealth-service/menstrualcycle/dayview/{calendarDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "calendarDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "todayDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "reducedResponse",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      {
+        "name": "skipbm",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      {
+        "name": "includeAnalysis",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ]
+  },
+  {
+    "path": "/sleep-service/sleep/dailySleep",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "date",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/sleep-service/sleep/dailySleepSummariesByDate",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/userprofile-service/userprofile/settings",
+    "method": "GET",
+    "parameters": []
+  },
+  {
+    "path": "/usersummary-service/stats/hydration/daily/{startDate}/{endDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/usersummary-service/stats/steps/daily/{startDate}/{endDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/usersummary-service/stats/stress/daily/{startDate}/{endDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/usersummary-service/usersummary/daily",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "calendarDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/usersummary-service/v2/dailysummaries",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/weight-service/weight/all/{startDate}/{endDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/weight-service/weight/range/{startDate}/{endDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "includeAll",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ]
+  },
+  {
+    "path": "/wellness-service/wellness/bodyBattery/reports/daily",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "startDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "endDate",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "chunks",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/wellness-service/wellness/daily/spo2acclimation/{calendarDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "calendarDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/wellness-service/wellness/dailyHeartRate",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "date",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/wellnessactivity-service/activity/summary/range/{fromDate}/{untilDate}",
+    "method": "GET",
+    "parameters": [
+      {
+        "name": "fromDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      },
+      {
+        "name": "untilDate",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "date",
+          "example": "1989-10-01"
+        }
+      }
+    ]
+  }
+]

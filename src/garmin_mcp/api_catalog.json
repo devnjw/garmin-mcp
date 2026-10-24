@@ -1,0 +1,887 @@
+{
+  "source": "https://developer.garmin.com/gc-developer-program/personal/swagger-docs/",
+  "verified_on": "2026-10-24",
+  "api_version": "1.0.0",
+  "endpoints": [
+    {
+      "id": "activity",
+      "tool": "garmin_api_activity",
+      "method": "GET",
+      "path": "/activity-service/activity/{activityId}",
+      "description": "Full activity details, including fields omitted from the summary tool.",
+      "parameters": [
+        {
+          "name": "activityId",
+          "argument": "activity_id",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "activity_workouts",
+      "tool": "garmin_api_activity_workouts",
+      "method": "GET",
+      "path": "/activity-service/activity/{activityId}/workouts",
+      "description": "Workouts associated with an activity.",
+      "parameters": [
+        {
+          "name": "activityId",
+          "argument": "activity_id",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "activity_search",
+      "tool": "garmin_api_activity_search",
+      "method": "GET",
+      "path": "/activitylist-service/activities/search/activities",
+      "description": "Search activities with every documented filter. Distances and elevations are meters, durations are seconds, dive depth is centimeters, and power is watts. Array filters become repeated query parameters. Supply all four coordinates for a bounding box. Follow pagination with start and limit.",
+      "parameters": [
+        {
+          "name": "start",
+          "argument": "start",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "api_default": 0
+        },
+        {
+          "name": "limit",
+          "argument": "limit",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "api_default": 99
+        },
+        {
+          "name": "favorite",
+          "argument": "favorite",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "api_default": -1
+        },
+        {
+          "name": "sortOrder",
+          "argument": "sort_order",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "api_default": "desc"
+        },
+        {
+          "name": "excludeChildren",
+          "argument": "exclude_children",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": true
+        },
+        {
+          "name": "sortBy",
+          "argument": "sort_by",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "search",
+          "argument": "search",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "activityType",
+          "argument": "activity_type",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "activitySubType",
+          "argument": "activity_sub_type",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "eventType",
+          "argument": "event_type",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "minDistance",
+          "argument": "min_distance",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "maxDistance",
+          "argument": "max_distance",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "minDuration",
+          "argument": "min_duration",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "maxDuration",
+          "argument": "max_duration",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "minElevation",
+          "argument": "min_elevation",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "maxElevation",
+          "argument": "max_elevation",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "upperLatitude",
+          "argument": "upper_latitude",
+          "in": "query",
+          "required": false,
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "name": "rightLongitude",
+          "argument": "right_longitude",
+          "in": "query",
+          "required": false,
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "name": "lowerLatitude",
+          "argument": "lower_latitude",
+          "in": "query",
+          "required": false,
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "name": "leftLongitude",
+          "argument": "left_longitude",
+          "in": "query",
+          "required": false,
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "name": "lowerMaxDepth",
+          "argument": "lower_max_depth",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "upperMaxDepth",
+          "argument": "upper_max_depth",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "decoDive",
+          "argument": "deco_dive",
+          "in": "query",
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "name": "minElapsedDuration",
+          "argument": "min_elapsed_duration",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "maxElapsedDuration",
+          "argument": "max_elapsed_duration",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "minBottomTime",
+          "argument": "min_bottom_time",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "maxBottomTime",
+          "argument": "max_bottom_time",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "minAvgPower",
+          "argument": "min_avg_power",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "excludedActivitySubType",
+          "argument": "excluded_activity_sub_type",
+          "in": "query",
+          "required": false,
+          "type": "array",
+          "items": "string"
+        },
+        {
+          "name": "requiredField",
+          "argument": "required_field",
+          "in": "query",
+          "required": false,
+          "type": "array",
+          "items": "string"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "heart_rate_zones",
+      "tool": "garmin_api_heart_rate_zones",
+      "method": "GET",
+      "path": "/biometric-service/heartRateZones/v2",
+      "description": "Heart-rate zone settings. generate_defaults defaults to false; setting it true may generate account zone settings when none exist.",
+      "parameters": [
+        {
+          "name": "generateDefaults",
+          "argument": "generate_defaults",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": true
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "download_activity",
+      "tool": "garmin_api_download_activity",
+      "method": "GET",
+      "path": "/download-service/files/activity/{activityId}",
+      "description": "Download the original activity ZIP to a private local directory. Returns file metadata; never extracts the archive. This tool writes a new file on this Mac.",
+      "parameters": [
+        {
+          "name": "activityId",
+          "argument": "activity_id",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }
+      ],
+      "binary": true
+    },
+    {
+      "id": "fitness_age",
+      "tool": "garmin_api_fitness_age",
+      "method": "GET",
+      "path": "/fitnessage-service/fitnessage/v2/{calendarDate}",
+      "description": "Fitness-age data as of a date. full_history_scan controls the look-back search.",
+      "parameters": [
+        {
+          "name": "calendarDate",
+          "argument": "calendar_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "fullHistoryScan",
+          "argument": "full_history_scan",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": true
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "weight_goals",
+      "tool": "garmin_api_weight_goals",
+      "method": "GET",
+      "path": "/goal-service/goal/user/effective/weightgoal/{startDate}/{endDate}",
+      "description": "Effective weight goals for a date interval.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "hrv_daily",
+      "tool": "garmin_api_hrv_daily",
+      "method": "GET",
+      "path": "/hrv-service/hrv/{calendarDate}",
+      "description": "Full daily HRV summary and readings.",
+      "parameters": [
+        {
+          "name": "calendarDate",
+          "argument": "calendar_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "hrv_summaries",
+      "tool": "garmin_api_hrv_summaries",
+      "method": "GET",
+      "path": "/hrv-service/hrv/daily/{fromDate}/{toDate}",
+      "description": "HRV summaries across a date interval.",
+      "parameters": [
+        {
+          "name": "fromDate",
+          "argument": "from_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "toDate",
+          "argument": "to_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "food_logs",
+      "tool": "garmin_api_food_logs",
+      "method": "GET",
+      "path": "/nutrition-service/food/logs/{date}",
+      "description": "Food logs with optional goals, nutrition, media and meal filters.",
+      "parameters": [
+        {
+          "name": "includeGoals",
+          "argument": "include_goals",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": true
+        },
+        {
+          "name": "includeNutrition",
+          "argument": "include_nutrition",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": true
+        },
+        {
+          "name": "includeMedia",
+          "argument": "include_media",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": true
+        },
+        {
+          "name": "mealId",
+          "argument": "meal_id",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "name": "date",
+          "argument": "date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "menstrual_summary",
+      "tool": "garmin_api_menstrual_summary",
+      "method": "GET",
+      "path": "/periodichealth-service/menstrualcycle/summary/{calendarDate}",
+      "description": "Menstrual-cycle summary for a date.",
+      "parameters": [
+        {
+          "name": "calendarDate",
+          "argument": "calendar_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "menstrual_day",
+      "tool": "garmin_api_menstrual_day",
+      "method": "GET",
+      "path": "/periodichealth-service/menstrualcycle/dayview/{calendarDate}",
+      "description": "Menstrual-cycle day view, including optional analysis and prediction reference date.",
+      "parameters": [
+        {
+          "name": "calendarDate",
+          "argument": "calendar_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "todayDate",
+          "argument": "today_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "reducedResponse",
+          "argument": "reduced_response",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": false
+        },
+        {
+          "name": "skipbm",
+          "argument": "skipbm",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": false
+        },
+        {
+          "name": "includeAnalysis",
+          "argument": "include_analysis",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": false
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "sleep_daily",
+      "tool": "garmin_api_sleep_daily",
+      "method": "GET",
+      "path": "/sleep-service/sleep/dailySleep",
+      "description": "Full sleep response for a date, with fields preserved.",
+      "parameters": [
+        {
+          "name": "date",
+          "argument": "date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "sleep_summaries",
+      "tool": "garmin_api_sleep_summaries",
+      "method": "GET",
+      "path": "/sleep-service/sleep/dailySleepSummariesByDate",
+      "description": "Sleep summaries across a date interval, including empty placeholders from Garmin.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "profile",
+      "tool": "garmin_api_profile",
+      "method": "GET",
+      "path": "/userprofile-service/userprofile/settings",
+      "description": "Full profile settings. May include account identifiers and personal information.",
+      "parameters": [],
+      "binary": false
+    },
+    {
+      "id": "hydration",
+      "tool": "garmin_api_hydration",
+      "method": "GET",
+      "path": "/usersummary-service/stats/hydration/daily/{startDate}/{endDate}",
+      "description": "Daily hydration statistics.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "steps",
+      "tool": "garmin_api_steps",
+      "method": "GET",
+      "path": "/usersummary-service/stats/steps/daily/{startDate}/{endDate}",
+      "description": "Daily step statistics.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "stress",
+      "tool": "garmin_api_stress",
+      "method": "GET",
+      "path": "/usersummary-service/stats/stress/daily/{startDate}/{endDate}",
+      "description": "Daily stress statistics.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "daily_summary",
+      "tool": "garmin_api_daily_summary",
+      "method": "GET",
+      "path": "/usersummary-service/usersummary/daily",
+      "description": "Full daily user summary, preserving all Garmin fields.",
+      "parameters": [
+        {
+          "name": "calendarDate",
+          "argument": "calendar_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "daily_summaries",
+      "tool": "garmin_api_daily_summaries",
+      "method": "GET",
+      "path": "/usersummary-service/v2/dailysummaries",
+      "description": "User summary range response, including the original data envelope.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "weight_all",
+      "tool": "garmin_api_weight_all",
+      "method": "GET",
+      "path": "/weight-service/weight/all/{startDate}/{endDate}",
+      "description": "All weight measurements from the weight/all endpoint.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "weight_range",
+      "tool": "garmin_api_weight_range",
+      "method": "GET",
+      "path": "/weight-service/weight/range/{startDate}/{endDate}",
+      "description": "Weight range response; include_all controls all versus latest daily entries.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "includeAll",
+          "argument": "include_all",
+          "in": "query",
+          "required": false,
+          "type": "boolean",
+          "api_default": false
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "body_battery",
+      "tool": "garmin_api_body_battery",
+      "method": "GET",
+      "path": "/wellness-service/wellness/bodyBattery/reports/daily",
+      "description": "Body Battery readings and optional interval grouping using chunks.",
+      "parameters": [
+        {
+          "name": "startDate",
+          "argument": "start_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "endDate",
+          "argument": "end_date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "chunks",
+          "argument": "chunks",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "spo2",
+      "tool": "garmin_api_spo2",
+      "method": "GET",
+      "path": "/wellness-service/wellness/daily/spo2acclimation/{calendarDate}",
+      "description": "Daily oxygen saturation and acclimation data.",
+      "parameters": [
+        {
+          "name": "calendarDate",
+          "argument": "calendar_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "heart_rate",
+      "tool": "garmin_api_heart_rate",
+      "method": "GET",
+      "path": "/wellness-service/wellness/dailyHeartRate",
+      "description": "Daily heart-rate readings and summary.",
+      "parameters": [
+        {
+          "name": "date",
+          "argument": "date",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    },
+    {
+      "id": "wellness_activities",
+      "tool": "garmin_api_wellness_activities",
+      "method": "GET",
+      "path": "/wellnessactivity-service/activity/summary/range/{fromDate}/{untilDate}",
+      "description": "Wellness activity summaries across a date interval.",
+      "parameters": [
+        {
+          "name": "fromDate",
+          "argument": "from_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "name": "untilDate",
+          "argument": "until_date",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "date"
+        }
+      ],
+      "binary": false
+    }
+  ]
+}
