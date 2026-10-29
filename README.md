@@ -6,12 +6,75 @@ A local MCP server for **all 26 documented Garmin Connect Personal API GET endpo
 
 ## Requirements
 
-- [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git on macOS, Windows or Linux.
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git — uv runs Git when installing from a `git+https` source, so the Quick Start needs both too.
 - Python **3.12.4 or newer**; tested on 3.12, 3.13 and 3.14. uv can provision Python for you.
 - Your own [Garmin Connect Personal API key](https://connect.garmin.com/app/settings/personalApiToken).
-- An MCP client supporting local STDIO servers, such as Codex, Claude Desktop or Cursor.
+- An MCP client supporting local STDIO servers, such as Claude Desktop, Cursor or Codex.
 
-## Install
+## Quick Start with uvx (no clone)
+
+Run the server without cloning this repository or creating a virtualenv. With [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, this is the whole setup:
+
+```sh
+uvx --from git+https://github.com/devnjw/garmin-mcp garmin-mcp
+```
+
+uvx builds the package from this GitHub repository and caches the result: the first run takes a minute, later runs start from cache. Re-running the command picks up recent commits on this repository. You can also pin a version with `git+https://github.com/devnjw/garmin-mcp@v0.2.0`.
+
+> **Important:** an unrelated package by another author already holds the name `garmin-mcp` on PyPI. Plain `uvx garmin-mcp`, `pip install garmin-mcp`, or anything without this git URL does **not** install this project. Always go through `git+https://github.com/devnjw/garmin-mcp`.
+
+### Claude Desktop
+
+Add this to `claude_desktop_config.json` (Claude Desktop → Settings → Developer → Edit Config), then restart Claude Desktop:
+
+```json
+{
+  "mcpServers": {
+    "garmin": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/devnjw/garmin-mcp", "garmin-mcp"],
+      "env": {
+        "GARMIN_PERSONAL_API_KEY": "YOUR_GARMIN_PERSONAL_API_KEY",
+        "GARMIN_MCP_TIMEZONE": "Europe/Berlin"
+      }
+    }
+  }
+}
+```
+
+### Cursor and Windsurf
+
+The same shape goes into Cursor's `~/.cursor/mcp.json` (MCP → Add new global MCP server) or Windsurf's `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "garmin": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/devnjw/garmin-mcp", "garmin-mcp"],
+      "env": {
+        "GARMIN_PERSONAL_API_KEY": "YOUR_GARMIN_PERSONAL_API_KEY",
+        "GARMIN_MCP_TIMEZONE": "Europe/Berlin"
+      }
+    }
+  }
+}
+```
+
+On Windows, `uvx` is on your `PATH` after installing uv; no Python installation is needed beforehand, but Git for Windows is required for the `git+https` source. Set `GARMIN_MCP_TIMEZONE` to your IANA timezone (for example `Asia/Seoul`); see [Timezone](#timezone). Note a literal key in a client configuration is stored as plaintext by that client; keep that file private, outside Git, and out of chat or issue reports.
+
+## What can you ask Claude?
+
+Once connected, natural questions work out of the box. A few to start with:
+
+- **Recovery check before training:** "Read my sleep, HRV and Body Battery from last night. If my HRV is below my recent baseline, suggest an easy session instead of a hard run."
+- **Weekly training load:** "Summarize my last four weeks of runs — distance, time and training effect — and tell me if I'm ramping up faster than I recover. Include missing days."
+- **Sleep stage comparison:** "Compare my deep and REM sleep minutes over the last 30 days. Which nights were worst, and how did evening stress and activity differ on those days?"
+- **Energy patterns:** "Show my Body Battery pattern for the last 14 days and point out when I drain fastest during the day."
+
+The 26 raw `garmin_api_*` tools cover anything more specific — heart-rate zones, weight trends, food logs, activity ZIP downloads. These prompts ask for analysis, not medical advice.
+
+## Install from source
 
 The same commands work in a POSIX shell or Windows PowerShell:
 
@@ -21,7 +84,7 @@ cd garmin-mcp
 uv sync --frozen --no-dev --python 3.12 --no-editable
 ```
 
-The installed executable is `.venv/bin/garmin-mcp` on macOS/Linux or `.venv/Scripts/garmin-mcp.exe` on Windows. Keep the clone in place and use an **absolute path** in your MCP client. This project is distributed through GitHub; do not assume an identically named PyPI package belongs to this repository.
+The installed executable is `.venv/bin/garmin-mcp` on macOS/Linux or `.venv/Scripts/garmin-mcp.exe` on Windows. Keep the clone in place and use an **absolute path** in your MCP client. This project is distributed through GitHub; do not assume an identically named PyPI package belongs to this repository. The clone install pins the code locally and suits development and restricted environments; the uvx route above is simpler for everyday use.
 
 ## Configure your API key
 
@@ -55,7 +118,24 @@ On macOS/Linux, restrict a configuration containing a key with `chmod 600 ~/.cod
 
 ### Other STDIO clients
 
-For clients accepting an `mcpServers` JSON configuration:
+For clients accepting an `mcpServers` JSON configuration — the uvx form below needs no clone:
+
+```json
+{
+  "mcpServers": {
+    "garmin": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/devnjw/garmin-mcp", "garmin-mcp"],
+      "env": {
+        "GARMIN_PERSONAL_API_KEY": "YOUR_GARMIN_PERSONAL_API_KEY",
+        "GARMIN_MCP_TIMEZONE": "Europe/Berlin"
+      }
+    }
+  }
+}
+```
+
+Or point `command` at the clone install instead:
 
 ```json
 {
@@ -78,6 +158,10 @@ On Windows, use the `.exe` path and escape backslashes in JSON (`C:\\Users\\...`
 With the key already present in that terminal's environment, run:
 
 ```sh
+# uvx install:
+uvx --from git+https://github.com/devnjw/garmin-mcp garmin-mcp check
+
+# clone install:
 uv run --frozen --no-dev garmin-mcp check
 ```
 
@@ -105,6 +189,14 @@ Try: “Show my sleep, HRV and workouts for the last seven days, including missi
 API coverage does not imply that every Garmin app feature is available, every device records every metric, or every account has data for every endpoint. There are no workout-upload or record-editing endpoints in this API snapshot. Empty data and denied access remain distinguishable.
 
 **Known live-API limitation:** `weight/all` returned HTTP 400 during verification even with documented ISO dates. Its tool preserves the error and suggests `garmin_api_weight_range(include_all=true)`, which succeeded. It does not silently change endpoints or response shapes. [Verification details](docs/VERIFICATION.md).
+
+## Why the official API instead of a scraper?
+
+Many Garmin MCP servers log in with your Garmin **username and password** against undocumented, reverse-engineered web endpoints. That gives a tool your full account credentials and breaks whenever Garmin changes its private web API. This server takes a different path:
+
+- **Official Personal API token only.** You create your own API key in Garmin Connect; the server uses Garmin's documented, supported Personal API. No password is ever requested, seen or handled by this code.
+- **Nothing stored.** The only credential is `GARMIN_PERSONAL_API_KEY`, supplied through the environment and kept in process memory. There is no token cache file, no keychain write and no telemetry. Revoke the key in Garmin Connect when you are done.
+- **Independently reviewed.** M8ven Tool Trust lists this repository as **Code Verified** on the [M8ven Trust Index](https://m8ven.ai/mcp/devnjw/garmin-mcp): all 34 tools' handlers verified to match their declared behavior, 32 read-only tools confirmed free of write/delete/exec, and no credential exfiltration, sensitive file access or obfuscation found (static and behavioral review of commit `fbe5127`, October 2026). That is an automated review, not a formal security audit; the full self-description of the security model is in [SECURITY.md](SECURITY.md).
 
 ## Privacy and storage
 
