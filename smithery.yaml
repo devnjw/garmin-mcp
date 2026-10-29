@@ -1,0 +1,31 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    properties:
+      garminPersonalApiKey:
+        type: string
+        title: Garmin Personal API Key
+        description: Your Garmin Connect Personal API key (https://connect.garmin.com/app/settings/personalApiToken)
+      garminMcpTimezone:
+        type: string
+        title: Timezone
+        description: IANA timezone for date handling, e.g. Asia/Seoul or America/New_York. Defaults to the system zone or UTC.
+    required:
+      - garminPersonalApiKey
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'uvx',
+      args: ['--from', 'git+https://github.com/devnjw/garmin-mcp', 'garmin-mcp'],
+      env: {
+        GARMIN_PERSONAL_API_KEY: config.garminPersonalApiKey,
+        ...(config.garminMcpTimezone ? { GARMIN_MCP_TIMEZONE: config.garminMcpTimezone } : {})
+      }
+    })
+exampleConfig:
+  garminPersonalApiKey: YOUR_GARMIN_PERSONAL_API_KEY
+  garminMcpTimezone: Asia/Seoul
