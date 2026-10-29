@@ -2,9 +2,71 @@
 
 공식 Garmin Connect Personal API 조회 API 26개와 요약 도구 8개를 제공하는 독립적인 커뮤니티 MCP입니다. macOS·Windows·Linux에서 각자의 API 키로 실행합니다. Garmin 공식 제품이 아닙니다.
 
-## 설치
+## 빠른 시작: uvx (저장소 클론 없이)
 
-Git과 [uv](https://docs.astral.sh/uv/getting-started/installation/)가 필요합니다. 다음 명령은 macOS/Linux 터미널과 Windows PowerShell에서 동일하게 실행합니다. uv가 Python 3.12 실행 환경을 준비합니다. 직접 Python을 준비한다면 3.12.4 이상이 필요합니다.
+[uv](https://docs.astral.sh/uv/getting-started/installation/)과 Git만 설치되어 있다면 아래 한 줄로 서버를 실행할 수 있습니다. 저장소를 클론하거나 가상환경을 직접 준비할 필요는 없습니다. uv는 `git+https` 소스를 설치할 때 시스템의 Git을 사용합니다.
+
+```sh
+uvx --from git+https://github.com/devnjw/garmin-mcp garmin-mcp
+```
+
+uvx가 이 GitHub 저장소에서 패키지를 빌드해 캐시합니다. 첫 실행은 1분 정도 걸리고, 이후 실행은 캐시에서 바로 시작합니다. 명령을 다시 실행하면 최신 커밋을 반영합니다. 버전을 고정하려면 `git+https://github.com/devnjw/garmin-mcp@v0.2.0`처럼 지정하세요.
+
+> **주의:** PyPI에는 다른 작성자의 동명 패키지 `garmin-mcp`가 이미 있습니다. `uvx garmin-mcp`, `pip install garmin-mcp`처럼 git URL 없이 설치하면 **이 프로젝트가 아닙니다.** 반드시 `git+https://github.com/devnjw/garmin-mcp`를 사용하세요.
+
+### Claude Desktop
+
+`claude_desktop_config.json`(Claude Desktop → 설정 → 개발자 → 설정 파일 편집)에 아래를 추가하고 Claude Desktop을 재시작합니다:
+
+```json
+{
+  "mcpServers": {
+    "garmin": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/devnjw/garmin-mcp", "garmin-mcp"],
+      "env": {
+        "GARMIN_PERSONAL_API_KEY": "YOUR_GARMIN_PERSONAL_API_KEY",
+        "GARMIN_MCP_TIMEZONE": "Asia/Seoul"
+      }
+    }
+  }
+}
+```
+
+### Cursor와 Windsurf
+
+Cursor의 `~/.cursor/mcp.json`(MCP → Add new global MCP server) 또는 Windsurf의 `~/.codeium/windsurf/mcp_config.json`에 같은 형태로 추가합니다:
+
+```json
+{
+  "mcpServers": {
+    "garmin": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/devnjw/garmin-mcp", "garmin-mcp"],
+      "env": {
+        "GARMIN_PERSONAL_API_KEY": "YOUR_GARMIN_PERSONAL_API_KEY",
+        "GARMIN_MCP_TIMEZONE": "Asia/Seoul"
+      }
+    }
+  }
+}
+```
+
+Windows에서는 uv 설치 후 `uvx`가 PATH에 들어오므로 Python을 미리 설치할 필요가 없지만, `git+https` 소스에는 Git for Windows가 필요합니다. 설정 파일의 키는 클라이언트에 평문으로 저장됩니다. 파일 접근을 제한하고, 채팅·공개 저장소·이슈에 올리지 마세요.
+
+### Claude에게 물어볼 수 있는 것
+
+연결 후에는 자연어로 바로 쓸 수 있습니다:
+
+- **회복 상태 점검:** "어젯밤 수면, HRV, 바디 배터리를 읽고, HRV가 최근 기준치보다 낮으면 오늘 강한 러닝 대신 가볍게 하라고 조언해 줘."
+- **주간 훈련 부하:** "최근 4주 달리기 기록을 거리·시간·트레이닝 이펙트로 정리하고, 회복 속도보다 훈련량이 더 빨리 늘고 있는지 알려줘. 기록 없는 날도 알려줘."
+- **수면 단계 비교:** "최근 30일 깊은 수면과 렘 수면 시간을 비교하고, 가장 나빴던 날과 그날 저녁 스트레스·활동량의 차이를 찾아줘."
+
+그 외 심박 존, 체중, 식단 로그, 운동 ZIP 다운로드 등은 26개의 `garmin_api_*` 상세 도구를 사용합니다. 이 프롬프트는 분석을 요청하는 것이지 의학적 조언이 아닙니다.
+
+## 설치 (클론 방식)
+
+Git과 uv가 필요합니다. 다음 명령은 macOS/Linux 터미널과 Windows PowerShell에서 동일하게 실행합니다. uv가 Python 3.12 실행 환경을 준비합니다. 직접 Python을 준비한다면 3.12.4 이상이 필요합니다. 코드 개발이나 완전 오프라인 실행 환경에는 이 방식이 적합하고, 일상적인 사용에는 위 uvx 방식이 더 간단합니다.
 
 ```sh
 git clone https://github.com/devnjw/garmin-mcp.git
@@ -47,6 +109,10 @@ command = 'C:\Users\YOUR_USER\garmin-mcp\.venv\Scripts\garmin-mcp.exe'
 해당 터미널에도 환경변수로 키를 전달했다면 다음 명령으로 인증과 요약 조회를 확인할 수 있습니다. MCP 클라이언트에만 설정한 키가 터미널에 자동 전달되지는 않습니다.
 
 ```sh
+# uvx 설치:
+uvx --from git+https://github.com/devnjw/garmin-mcp garmin-mcp check
+
+# 클론 설치:
 uv run --frozen --no-dev garmin-mcp check
 ```
 
